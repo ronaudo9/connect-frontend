@@ -3,8 +3,99 @@
   height: 50px;
   width: 100%;
   display: flex;
+  /*要素の中央揃え*/
   align-items: center;
+  /*要素の位置を固定する*/
   position: sticky;
   top: 0;
+  /*要素の位置の重なり、手前ほど数字が大きい*/
+  z-index: 100;
+}
+.topbarLeft{
+  /*3/12の幅の比率という意味*/
+  flex: 3;
+}
 
+.logo{
+  font-size: 24px;
+  color: white;
+  /*フォントの太さboldは太いという意味*/
+  font-weight: bold;
+  margin-left: 20px;
+}
+
+.searchbar{
+  width: 100%;
+  height: 30px;
+  background-color: white;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+}
+
+.searchIcon{
+  /*!importantを使用する事により優先して反映される*/
+  font-size: 20px !important;
+  margin-left: 10px;
+  margin-right: 5px;
+}
+
+.searchInput{
+  /*<input/>の入力フォームの枠を取り除いている*/
+  border: none;
+  width: 80%;
+}
+
+.searchInput:focus{
+  /*フォーカスがあたった時も<input/>の入力フォームの枠を取り除いている*/
+  outline: none;
+}
+
+.topbarCenter{
+  flex: 5;
+}
+
+.topbarRight{
+  flex: 4;
+  display: flex;
+  align-items: center;
+  /* 各アイテムを均等に配置し各アイテムの両側に半分の大きさの間隔を置く */
+  justify-content: space-around;
+  color: white;
+}
+
+.topbarItemIcons{
+  display: flex;
+}
+
+.topbarIconItem{
+  margin-right: 15px;
+  cursor: pointer;
+  /* 現在位置を基準に相対位置が決定される */
+  position: relative;
+  margin-top: 5px;
+}
+
+.topbarIconBadge{
+  /* 絶対位置を指定 */
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: #db6ab9;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+.topbarImg{
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  /* 画像の比率を保ってくれる */
+  object-fit: cover;
 }
