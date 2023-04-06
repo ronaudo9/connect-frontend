@@ -12,6 +12,8 @@ import CloseFriend from "../closeFriend/CloseFriend";
 import "./Sidebar.css"
 import { Users } from "../../dummyData";
 
+
+
 const Sidebar = () => {
   return (
     <div className="sidebar">
