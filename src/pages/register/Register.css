@@ -1,0 +1,105 @@
+.login {
+  width: 100vw;
+  height: 100vh;
+  background-color: #f0f2f5;
+  display: flex;
+  /* 上下のcenter */
+  align-items: center;
+  /* 左右のcenter */
+  justify-content: center;
+}
+
+.loginWrapper {
+  width: 70%;
+  height: 70%;
+  /* background-color: green; */
+  display: flex;
+}
+
+.loginLeft,
+.loginRight {
+  /* loginLeft,loginRightともに1:1の比率になる */
+  flex: 1;
+  /* display: flex;からjustify-content: center;までの３点セット */
+  display: flex;
+  /* 子要素を縦方向に配置する */
+  flex-direction: column;
+  /* その後、水平方向のcenterに配置する */
+  justify-content: center;
+}
+
+.loginLogo {
+  font-size: 50px;
+  font-weight: 800;
+  color: #41428b;
+  margin-bottom: 10px;
+}
+
+.loginDesc {
+  font-size: 24px;
+}
+
+.loginBox {
+  height: 400px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+   /* Flexboxコンテナ内のアイテムを均等に分散配置し、最初のアイテムはコンテナの開始位置に、最後のアイテムはコンテナの終了位置に配置 */
+  justify-content: space-between;
+  box-shadow: 3px 7px 13px -10px #65789f;
+  border-radius: 10px;
+}
+
+.loginInput {
+  height: 50px;
+  border-radius: 10px;
+  border:1px solid gray;
+  font-size: 18px;
+   /* Eメール、パスワードの左側のpadding */
+  padding-left: 20px;
+  margin-bottom: 15px;
+}
+
+.loginInput:focus {
+  outline: none;
+}
+
+.loginButton {
+  height: 50px;
+  border-radius: 10px;
+  border: none;
+  background-color: #41428b;
+  font-size: 20px;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.loginForgot {
+  text-align: center;
+  color: #41428b;
+}
+
+.loginRegisterButton {
+  height: 50px;
+  width: 60%;
+  /* widthで左に寄ったので中央に寄せるのに使用 */
+  align-self: center;
+  border-radius: 10px;
+  border: none;
+  background-color: #3c8b50;
+  font-size: 20px;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 15px;
+}
+/* テキストコンテンツを水平方向に中央に配置するために使用 */
+.loginMsg {
+  text-align: center;
+  font-weight: 550;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
