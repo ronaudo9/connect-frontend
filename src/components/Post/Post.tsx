@@ -17,6 +17,7 @@ type Props = {
 };
 
 const Post = ({ post }: Props) => {
+  const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER || "";
   const [like, setLike ] = useState<number>(post.like);
   const [isLiked, setIsLiked] = useState<boolean>(false);
 
@@ -30,7 +31,7 @@ const Post = ({ post }: Props) => {
         <div className="postTop">
           <div className="postTopLeft">
             <img
-              src={Users.filter((user) => user.id === post.userId)[0].profilePicture}
+              src={PUBLIC_FOLDER + Users.filter((user) => user.id === post.userId)[0].profilePicture}
               alt=""
               className="postProfileImg"
             />
@@ -43,11 +44,11 @@ const Post = ({ post }: Props) => {
         </div>
         <div className="postCenter">
           <span className="postText">{post.desc}</span>
-          <img src={post.photo} alt="" className="postImg" />
+          <img src={ PUBLIC_FOLDER + post.photo} alt="" className="postImg" />
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">
-            <img src="./assets/heart.png" alt="" className="likeIcon" onClick = {() => handleLike()}/>
+            <img src={PUBLIC_FOLDER + "/heart.png"} alt="" className="likeIcon" onClick = {() => handleLike()}/>
             <span className="postLikeCounter">{`${like}人がいいねを押しました`}</span>
           </div>
           <div className="postBottomRight">

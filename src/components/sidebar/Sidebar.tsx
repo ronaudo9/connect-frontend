@@ -9,10 +9,9 @@ import {
 } from "@mui/icons-material";
 import React from "react";
 import CloseFriend from "../closeFriend/CloseFriend";
-import "./Sidebar.css"
+import "./Sidebar.css";
 import { Users } from "../../dummyData";
-
-
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   return (
@@ -21,7 +20,9 @@ const Sidebar = () => {
         <ul className="sidebarList">
           <li className="sidebarListItem">
             <Home className="sidebarIcon" />
-            <span className="sidebarListItemText">ホーム</span>
+            <Link to="/" style={{ textDecoration: "none", color: "black" }}>
+              <span className="sidebarListItemText">ホーム</span>
+            </Link>
           </li>
           <li className="sidebarListItem">
             <Search className="sidebarIcon" />
@@ -41,7 +42,9 @@ const Sidebar = () => {
           </li>
           <li className="sidebarListItem">
             <Person className="sidebarIcon" />
-            <span className="sidebarListItemText">プロフィール</span>
+            <Link to="profile/messi" style={{ textDecoration: "none", color: "black" }}>
+              <span className="sidebarListItemText">プロフィール</span>
+            </Link>
           </li>
           <li className="sidebarListItem">
             <Settings className="sidebarIcon" />
@@ -50,8 +53,8 @@ const Sidebar = () => {
         </ul>
         <hr className="sidebarHr" />
         <ul className="sidebarFriendList">
-        {Users.map((user) =>(
-          <CloseFriend  user={user} key={user.id}/>
+          {Users.map((user) => (
+            <CloseFriend user={user} key={user.id} />
           ))}
         </ul>
       </div>
