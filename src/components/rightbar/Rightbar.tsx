@@ -62,7 +62,7 @@ const Rightbar = ({ profile }: Props) => {
         <div className="rightbarFollowings">
         <div className="rightbarFollowing">
           <img src={PUBLIC_FOLDER+"/person/1.jpeg"} alt="" className="rightbarFollowingImg" />
-          <span className="rightbarFollowingName">messi</span>
+          <span className="rightbarFollowingName">ronaudo9</span>
           </div>
           <div className="rightbarFollowing">
           <img src={PUBLIC_FOLDER+"/person/2.jpeg"} alt="" className="rightbarFollowingImg" />
