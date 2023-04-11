@@ -27,7 +27,7 @@ const Profile = () => {
               />
             </div>
             <div className="profileInfo">
-              <h4 className = "profileInfoName">messi</h4>
+              <h4 className = "profileInfoName">ronaudo9</h4>
               <span className = "profileInfoDesc">フットボーラーです！</span>
             </div>
           </div>
