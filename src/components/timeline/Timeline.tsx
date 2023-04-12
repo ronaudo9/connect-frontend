@@ -19,20 +19,25 @@ type Post = {
 // type Props = {
 //   Posts: PostType[]; // 投稿オブジェクトの配列を表すプロパティ
 // };
+type Props = {
+  username?: string; // usernameプロパティを追加
+};
 
-const Timeline = () => {
+const Timeline = ({username}:Props) => {
   const [posts, setPosts] = useState<Post[]>([]);
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await axios.get(
+      const response = username
+      ? await axios.get(`/posts/profile/${username}`)
+      :await axios.get(
         "/posts/timeline/6423ab27b2b09fbadf06372a"
       );
       const fetchedPosts = response.data;
       setPosts(fetchedPosts);
     };
     fetchPosts();
-  }, []);
+  }, [username]);
   return (
     <div className="timeline">
       <div className="timelineWrapper">

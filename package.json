@@ -21,6 +21,7 @@
     "react-router-dom": "^6.10.0",
     "react-scripts": "5.0.1",
     "styled-components": "^5.3.9",
+    "timeago.js": "^4.0.2",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
@@ -48,5 +49,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy":"http://localhost:8000/api"
+  "proxy": "http://localhost:8000/api"
 }
