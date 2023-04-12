@@ -42,7 +42,10 @@ const Sidebar = () => {
           </li>
           <li className="sidebarListItem">
             <Person className="sidebarIcon" />
-            <Link to="profile/messi" style={{ textDecoration: "none", color: "black" }}>
+            <Link
+              to="profile/ronaudo9"
+              style={{ textDecoration: "none", color: "black" }}
+            >
               <span className="sidebarListItemText">プロフィール</span>
             </Link>
           </li>

@@ -3,6 +3,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "./Post.css";
 // import { Users } from "../../dummyData";
+import { format } from "timeago.js";
+import { Link } from "react-router-dom";
 
 // type Props = {
 //   post: {
@@ -41,6 +43,7 @@ type User = {
   createdAt: number;
   updatedAt: number;
   __v: number;
+  desc?: string;
 };
 
 const Post = ({ post }: Props) => {
@@ -51,12 +54,13 @@ const Post = ({ post }: Props) => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const response = await axios.get(`/users/${post.userId}`);
+      const response = await axios.get(`/users?userId=${post.userId}`);
       const fetchedUser = response.data;
+      console.log(response.data);
       setUser(fetchedUser);
     };
     fetchUser();
-  }, []);
+  }, [post.userId]);
 
   const handleLike = () => {
     setLike(isLiked ? like - 1 : like + 1);
@@ -67,14 +71,18 @@ const Post = ({ post }: Props) => {
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            <img
-              src={user?.profilePicture || PUBLIC_FOLDER + "/person/noAvatar.png"}
-              // {PUBLIC_FOLDER + Users.filter((user) => user.id === post.userId)[0].profilePicture}
-              alt=""
-              className="postProfileImg"
-            />
+            <Link to={`/profile/${user?.username}`}>
+              <img
+                src={
+                  user?.profilePicture || PUBLIC_FOLDER + "/person/noAvatar.png"
+                }
+                // {PUBLIC_FOLDER + Users.filter((user) => user.id === post.userId)[0].profilePicture}
+                alt=""
+                className="postProfileImg"
+              />
+            </Link>
             <span className="postUsername">{user?.username}</span>
-            <span className="postDate">{post?.createdAt}</span>
+            <span className="postDate">{format(post?.createdAt)}</span>
           </div>
           <div className="postTopRight">
             <MoreVert />
