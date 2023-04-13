@@ -1,9 +1,27 @@
-import React from 'react';
+import React, { useContext, useRef } from "react";
 import "./Login.css";
-
-
+import { FormEvent } from 'react';
+import { loginCall } from "../../state/ActionCalls";
+import { AuthContext } from "../../state/AuthContext";
 
 const Login = () => {
+  const email = useRef<HTMLInputElement | null>(null);
+  const password = useRef<HTMLInputElement | null>(null);
+  const {user,isFetching,error,dispatch} = useContext(AuthContext)
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    //フォームが送信された時にページがリロードされるのを防ぐ
+    e.preventDefault();
+  //  console.log(email.current?.value)
+  //  console.log(password.current?.value)
+  loginCall(
+    {
+      email: email.current?.value,
+      password: password.current?.value,
+    },
+    dispatch
+  )
+  };
+  console.log(user)
   return (
     <div className="login">
       <div className="loginWrapper">
@@ -11,19 +29,32 @@ const Login = () => {
           <h3 className="loginLogo">Connect</h3>
           <span className="loginDesc">本格的なSNSを、自分の手で。</span>
         </div>
-          <div className="loginRight">
-            <div className="loginBox">
-              <p className="loginMsg">ログインはこちら</p>
-              <input type="text" className="loginInput" placeholder='Eメール'/>
-              <input type="text" className="loginInput" placeholder='パスワード'/>
-              <button className = "loginButton">ログイン</button>
-              <span className="loginForgot">パスワードを忘れた方へ</span>
-              <button className="loginRegisterButton">アカウント作成</button>
-            </div>
-          </div>
+        <div className="loginRight">
+          <form className="loginBox" onSubmit = {(e) => handleSubmit(e)}>
+            <p className="loginMsg">ログインはこちら</p>
+            <input
+              type="email"
+              className="loginInput"
+              placeholder="Eメール"
+              required
+              ref = {email}
+            />
+            <input
+              type="password"
+              className="loginInput"
+              placeholder="パスワード"
+              required
+              minLength={6}
+              ref={password}
+            />
+            <button className="loginButton">ログイン</button>
+            <span className="loginForgot">パスワードを忘れた方へ</span>
+            <button className="loginRegisterButton">アカウント作成</button>
+          </form>
+        </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
