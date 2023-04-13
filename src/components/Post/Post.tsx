@@ -34,14 +34,12 @@ type User = {
   _id: string;
   username: string;
   email: string;
-  password: string;
   profilePicture: string;
   coverPicture: string;
   followers: string[];
   followings: string[];
   isAdmin: boolean;
   createdAt: number;
-  updatedAt: number;
   __v: number;
   desc?: string;
 };
