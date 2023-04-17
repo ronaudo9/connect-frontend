@@ -1,10 +1,11 @@
 import { MoreVert } from "@mui/icons-material";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Post.css";
 // import { Users } from "../../dummyData";
 import { format } from "timeago.js";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../state/AuthContext";
 
 // type Props = {
 //   post: {
@@ -49,18 +50,41 @@ const Post = ({ post }: Props) => {
   const [like, setLike] = useState<number>(post?.likes.length);
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [user, setUser] = useState<User | null>(null);
+  //userはstateと被るのでusersに変更した
+  const { user:users } = useContext(AuthContext);
+
+  const defaultUser: User = {
+    _id: "",
+    username: "",
+    email: "",
+    profilePicture: "",
+    coverPicture: "",
+    followers: [],
+    followings: [],
+    isAdmin: false,
+    createdAt: 0,
+    __v: 0,
+    desc: "",
+  };
+
+  const currentUser = users ? users : defaultUser;
 
   useEffect(() => {
     const fetchUser = async () => {
       const response = await axios.get(`/users?userId=${post.userId}`);
       const fetchedUser = response.data;
-      console.log(response.data);
       setUser(fetchedUser);
     };
     fetchUser();
   }, [post.userId]);
 
-  const handleLike = () => {
+  const handleLike =  async () => {
+    try{
+      //いいねのAPIを叩いていく
+      await axios.put(`/posts/${post._id}/like`,{userId: currentUser?._id});
+    }catch(err){
+      console.log(err);
+    }
     setLike(isLiked ? like - 1 : like + 1);
     setIsLiked(!isLiked);
   };
@@ -72,7 +96,8 @@ const Post = ({ post }: Props) => {
             <Link to={`/profile/${user?.username}`}>
               <img
                 src={
-                  user?.profilePicture || PUBLIC_FOLDER + "/person/noAvatar.png"
+                  user?.profilePicture?
+                  PUBLIC_FOLDER + user?.profilePicture : PUBLIC_FOLDER + "/person/noAvatar.png"
                 }
                 // {PUBLIC_FOLDER + Users.filter((user) => user.id === post.userId)[0].profilePicture}
                 alt=""

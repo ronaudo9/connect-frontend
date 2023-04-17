@@ -1,15 +1,53 @@
 import { Analytics, Face, Gif, Image } from "@mui/icons-material";
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../../state/AuthContext";
 import "./Share.css";
+
+type User = {
+  _id: string;
+  username: string;
+  email: string;
+  profilePicture: string;
+  coverPicture: string;
+  followers: string[];
+  followings: string[];
+  isAdmin: boolean;
+  createdAt: number;
+  __v: number;
+  desc?: string;
+};
 
 const Share = () => {
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
+
+  const { user } = useContext(AuthContext);
+
+  const defaultUser: User = {
+    _id: "",
+    username: "",
+    email: "",
+    profilePicture: "",
+    coverPicture: "",
+    followers: [],
+    followings: [],
+    isAdmin: false,
+    createdAt: 0,
+    __v: 0,
+    desc: "",
+  };
+
+  const currentUser = user ? user : defaultUser;
+
+
   return (
     <div className="share">
       <div className="shareWrapper">
         <div className="shareTop">
           <img
-            src={PUBLIC_FOLDER + "/person/noAvatar.png"}
+            src={
+              currentUser?.profilePicture?
+                  PUBLIC_FOLDER + currentUser?.profilePicture : PUBLIC_FOLDER + "/person/noAvatar.png"
+                }
             alt=""
             className="shareProfileImg"
           />
