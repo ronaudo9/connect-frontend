@@ -1,5 +1,6 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../state/AuthContext";
 import Post from "../Post/Post";
 import Share from "../share/Share";
 import "./Timeline.css";
@@ -16,6 +17,20 @@ type Post = {
   __v: number;
 };
 
+type User = {
+  _id: string;
+  username: string;
+  email: string;
+  profilePicture: string;
+  coverPicture: string;
+  followers: string[];
+  followings: string[];
+  isAdmin: boolean;
+  createdAt: number;
+  __v: number;
+  desc?: string;
+};
+
 // type Props = {
 //   Posts: PostType[]; // 投稿オブジェクトの配列を表すプロパティ
 // };
@@ -26,18 +41,36 @@ type Props = {
 const Timeline = ({username}:Props) => {
   const [posts, setPosts] = useState<Post[]>([]);
 
+  const defaultUser: User = {
+    _id: "",
+    username: "",
+    email: "",
+    profilePicture: "",
+    coverPicture: "",
+    followers: [],
+    followings: [],
+    isAdmin: false,
+    createdAt: 0,
+    __v: 0,
+    desc: "",
+  };
+
+  const { user } = useContext(AuthContext);
+
+  const currentUser = user ? user : defaultUser;
+
   useEffect(() => {
     const fetchPosts = async () => {
       const response = username
-      ? await axios.get(`/posts/profile/${username}`)
+      ? await axios.get(`/posts/profile/${username}`)//プロフィールの場合
       :await axios.get(
-        "/posts/timeline/6423ab27b2b09fbadf06372a"
-      );
+        `/posts/timeline/${currentUser?._id}`
+      );//ホームの場合
       const fetchedPosts = response.data;
       setPosts(fetchedPosts);
     };
     fetchPosts();
-  }, [username]);
+  }, [username,currentUser?._id]);
   return (
     <div className="timeline">
       <div className="timelineWrapper">
