@@ -38,7 +38,7 @@ type Props = {
   username?: string; // usernameプロパティを追加
 };
 
-const Timeline = ({username}:Props) => {
+const Timeline = ({ username }: Props) => {
   const [posts, setPosts] = useState<Post[]>([]);
 
   const defaultUser: User = {
@@ -62,15 +62,16 @@ const Timeline = ({username}:Props) => {
   useEffect(() => {
     const fetchPosts = async () => {
       const response = username
-      ? await axios.get(`/posts/profile/${username}`)//プロフィールの場合
-      :await axios.get(
-        `/posts/timeline/${currentUser?._id}`
-      );//ホームの場合
-      const fetchedPosts = response.data;
-      setPosts(fetchedPosts);
+        ? await axios.get(`/posts/profile/${username}`) //プロフィールの場合
+        : await axios.get(`/posts/timeline/${currentUser?._id}`); //ホームの場合
+      setPosts(
+        response.data.sort((post1:Post, post2:Post) => {
+          return new Date(post2.createdAt).getTime() - new Date(post1.createdAt).getTime();
+        })
+      );
     };
     fetchPosts();
-  }, [username,currentUser?._id]);
+  }, [username, currentUser?._id]);
   return (
     <div className="timeline">
       <div className="timelineWrapper">
