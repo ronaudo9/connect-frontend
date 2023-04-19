@@ -40,11 +40,16 @@ const Topbar = () => {
   const currentUser = user ? user : defaultUser;
 
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER || "";
+
+  const logOut =(e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
+    localStorage.setItem("user", JSON.stringify(null));
+    window.location.reload();
+  }
   return (
     <div className="topbarContainer">
       <div className="topbarLeft">
         <Link to="/" style={{ textDecoration: "none" }}>
-        <span className="logo">Connect</span>
+          <span className="logo">Connect</span>
         </Link>
       </div>
       <div className="topbarCenter">
@@ -67,9 +72,22 @@ const Topbar = () => {
             <Notifications />
             <span className="topbarIconBadge">2</span>
           </div>
-          <Link to = {`/profile/${currentUser?.username}`}>
-          <img src={currentUser?.profilePicture ?PUBLIC_FOLDER + currentUser?.profilePicture : PUBLIC_FOLDER + "/person/noAvatar.png"} alt="" className="topbarImg" />
-          </Link>
+          {/* <Link to={`/profile/${currentUser?.username}`}> */}
+          <div className = "topbarImage">
+            <div className = "logOut">
+            <img
+              src={
+                currentUser?.profilePicture
+                  ? PUBLIC_FOLDER + currentUser?.profilePicture
+                  : PUBLIC_FOLDER + "/person/noAvatar.png"
+              }
+              alt=""
+              className="topbarImg"
+              onClick={(e) => logOut(e)}
+            />
+          </div>
+          </div>
+          {/* </Link> */}
         </div>
       </div>
     </div>

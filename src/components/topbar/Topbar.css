@@ -91,6 +91,19 @@
   font-size: 12px;
 }
 
+.topbarImage{
+  display: flex;
+  position: relative;
+}
+
+.logOut:hover::before {
+  position: absolute;
+  content: "logout";
+  font-size: 5px;
+  font-weight: bold;
+  color: #db6ab9;
+}
+
 .topbarImg{
   width: 32px;
   height: 32px;
