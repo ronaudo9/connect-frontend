@@ -31,6 +31,10 @@ const Register = () => {
       }
     }
   };
+  const login=(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    navigate("/login");
+  };
+
   return (
     <div className="login">
       <div className="loginWrapper">
@@ -74,7 +78,7 @@ const Register = () => {
             <button className="loginButton" type="submit">
               サインアップ
             </button>
-            <button className="loginRegisterButton">ログイン</button>
+            <button className="loginRegisterButton" onClick={(e) => login(e)}>ログイン</button>
           </form>
         </div>
       </div>

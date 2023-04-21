@@ -4,6 +4,7 @@ import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import {
   BrowserRouter as Router,
+  Link,
   Navigate,
   Route,
   Routes,
@@ -16,15 +17,15 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={user ? <Home /> : <Login />} />
+        <Route path="/" element={user ? <Home /> : <Register />} />
         <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
         <Route
           path="/register"
-          element={user ? <Navigate to="/" /> : <Login />}
+          element={user ? <Navigate to="/" /> : <Register />}
         />
         <Route
           path="/profile/:username"
-          element={user ? <Profile /> : <Login />}
+          element={user ? <Profile /> : <Register />}
         />
       </Routes>
     </Router>
