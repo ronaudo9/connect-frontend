@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Online from "../online/Online";
 import "./Rightbar.css";
 import { Users } from "../../dummyData";
+import { AuthContext } from "../../state/AuthContext";
+import axios from "axios";
+import ProfileRightbar from "../profileRightbar/ProfileRightbar";
 
 type user = {
   _id: string;
@@ -17,6 +20,7 @@ type user = {
   desc?: string;
 };
 
+
 type Props = {
   //?がないとHome.tsxでエラー。nullがないとProfile.tsxでエラーが発生。
   user?: user | null;
@@ -24,6 +28,36 @@ type Props = {
 
 const Rightbar = ({ user }: Props) => {
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
+
+  const [onlineUsers, setOnlineUsers] = useState<user[]>([]);
+
+
+  const { user:users } = useContext(AuthContext);
+
+  const defaultUser: user = {
+    _id: "",
+    username: "",
+    email: "",
+    profilePicture: "",
+    coverPicture: "",
+    followers: [],
+    followings: [],
+    isAdmin: false,
+    createdAt: 0,
+    __v: 0,
+    desc: "",
+  };
+
+  const currentUser = users ? users : defaultUser;
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const response = await axios.get(`/users/${currentUser?._id}/followings`); //ホームの場合
+      setOnlineUsers(response.data);
+    };
+    fetchPosts();
+  }, [currentUser?._id]);
+
   const HomeRightbar = () => {
     return (
       <>
@@ -36,8 +70,8 @@ const Rightbar = ({ user }: Props) => {
         <img src={PUBLIC_FOLDER + "/ad.jpeg"} alt="" className="eventImg" />
         <h4 className="rightbarTitle">オンラインの友達</h4>
         <ul className="rightbarFriendList">
-          {Users.map((user) => (
-            <Online user={user} key={user.id} />
+          {onlineUsers.map((user) => (
+            <Online user={user} key={user._id} />
           ))}
         </ul>
         <p className="promotionTitle">プロモーション広告</p>
@@ -63,7 +97,7 @@ const Rightbar = ({ user }: Props) => {
     );
   };
 
-  const ProfileRightbar = () => {
+  const ProfileRight = () => {
     return (
       <>
         <h4 className="rightbarTitle">ユーザー情報</h4>
@@ -73,16 +107,11 @@ const Rightbar = ({ user }: Props) => {
             <span className="rightbarInfoKey">アルゼンチン</span>
           </div>
           <h4 className="rightbarTitle">あなたの友達</h4>
-          <div className="rightbarFollowings">
-            <div className="rightbarFollowing">
-              <img
-                src={PUBLIC_FOLDER + "/person/1.jpeg"}
-                alt=""
-                className="rightbarFollowingImg"
-              />
-              <span className="rightbarFollowingName">ronaudo9</span>
-            </div>
-            <div className="rightbarFollowing">
+          <ul className="rightbarFollowings">
+          {onlineUsers.map((user) => (
+            <ProfileRightbar user={user} key={user._id} />
+          ))}
+            {/* <div className="rightbarFollowing">
               <img
                 src={PUBLIC_FOLDER + "/person/2.jpeg"}
                 alt=""
@@ -113,8 +142,8 @@ const Rightbar = ({ user }: Props) => {
                 className="rightbarFollowingImg"
               />
               <span className="rightbarFollowingName">Kikukawa</span>
-            </div>
-          </div>
+            </div> */}
+          </ul>
         </div>
       </>
     );
@@ -122,7 +151,7 @@ const Rightbar = ({ user }: Props) => {
   return (
     <div className="rightbar">
       <div className="rightbarWrapper">
-        {user ? <ProfileRightbar /> : <HomeRightbar />}
+        {user ? <ProfileRight /> : <HomeRightbar />}
       </div>
     </div>
   );

@@ -7,13 +7,46 @@ import {
   Search,
   Settings,
 } from "@mui/icons-material";
-import React from "react";
+import React, { useContext } from "react";
 import CloseFriend from "../closeFriend/CloseFriend";
 import "./Sidebar.css";
 import { Users } from "../../dummyData";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../state/AuthContext";
+
+type User = {
+  _id: string;
+  username: string;
+  email: string;
+  profilePicture: string;
+  coverPicture: string;
+  followers: string[];
+  followings: string[];
+  isAdmin: boolean;
+  createdAt: number;
+  __v: number;
+  desc?: string;
+};
 
 const Sidebar = () => {
+  const { user } = useContext(AuthContext);
+
+  const defaultUser: User = {
+    _id: "",
+    username: "",
+    email: "",
+    profilePicture: "",
+    coverPicture: "",
+    followers: [],
+    followings: [],
+    isAdmin: false,
+    createdAt: 0,
+    __v: 0,
+    desc: "",
+  };
+
+  const currentUser = user ? user : defaultUser;
+
   return (
     <div className="sidebar">
       <div className="sidebarWrapper">
@@ -43,7 +76,7 @@ const Sidebar = () => {
           <li className="sidebarListItem">
             <Person className="sidebarIcon" />
             <Link
-              to="profile/ronaudo9"
+              to={`profile/${currentUser?.username}`}
               style={{ textDecoration: "none", color: "black" }}
             >
               <span className="sidebarListItemText">プロフィール</span>

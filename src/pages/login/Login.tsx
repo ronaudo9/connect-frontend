@@ -3,8 +3,10 @@ import "./Login.css";
 import { FormEvent } from 'react';
 import { loginCall } from "../../state/ActionCalls";
 import { AuthContext } from "../../state/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const email = useRef<HTMLInputElement | null>(null);
   const password = useRef<HTMLInputElement | null>(null);
   const {user,isFetching,error,dispatch} = useContext(AuthContext)
@@ -22,6 +24,10 @@ const Login = () => {
   )
   };
   // console.log(user)
+  const register=(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    navigate("/register");
+  };
+
   return (
     <div className="login">
       <div className="loginWrapper">
@@ -49,7 +55,7 @@ const Login = () => {
             />
             <button className="loginButton">ログイン</button>
             <span className="loginForgot">パスワードを忘れた方へ</span>
-            <button className="loginRegisterButton">アカウント作成</button>
+            <button className="loginRegisterButton" onClick={(e) => register(e)}>アカウント作成</button>
           </form>
         </div>
       </div>
