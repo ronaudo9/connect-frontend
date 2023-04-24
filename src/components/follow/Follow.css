@@ -1,0 +1,61 @@
+.follow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.followButton{
+	display: block;
+	text-align: center;
+	vertical-align: middle;
+	text-decoration: none;
+	/* width: 120px; */
+	margin: auto;
+	padding: 1rem 4rem;
+	font-weight: bold;
+	border: 2px solid #db6ab9;
+	background: #db6ab9;
+	color: #fff;
+	border-radius: 100vh;
+	transition: 0.5s;
+  cursor: pointer;
+  /* border-radius: 10px;
+  border: none;
+  background-color: #41428b;
+  color: white;
+  font-weight: 500;
+  cursor: pointer; */
+}
+
+.followButton:hover {
+  color: #db6ab9;
+	background: #fff;
+}
+
+.unFollowButton{
+	display: block;
+	text-align: center;
+	vertical-align: middle;
+	text-decoration: none;
+	/* width: 120px; */
+	margin: auto;
+	padding: 1rem 4rem;
+	font-weight: bold;
+	border: 2px solid #27acd9;
+	background: #27acd9;
+	color: #fff;
+	border-radius: 100vh;
+	transition: 0.5s;
+  cursor: pointer;
+  /* border-radius: 10px;
+  border: none;
+  background-color: #41428b;
+  color: white;
+  font-weight: 500;
+  cursor: pointer; */
+}
+
+.unFollowButton:hover {
+  color: #27acd9;
+	background: #fff;
+}

@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { AuthContext } from "../../state/AuthContext";
+import Follow from "../follow/Follow";
 import Post from "../Post/Post";
 import Share from "../share/Share";
 import "./Timeline.css";
@@ -39,6 +41,7 @@ type Props = {
 };
 
 const Timeline = ({ username }: Props) => {
+
   const [posts, setPosts] = useState<Post[]>([]);
 
   const defaultUser: User = {
@@ -59,6 +62,8 @@ const Timeline = ({ username }: Props) => {
 
   const currentUser = user ? user : defaultUser;
 
+  const query = username === currentUser.username ? true : false;
+
   useEffect(() => {
     const fetchPosts = async () => {
       const response = username
@@ -73,7 +78,21 @@ const Timeline = ({ username }: Props) => {
     fetchPosts();
   }, [username, currentUser?._id]);
   return (
+    username?(
     <div className="timeline">
+      <div className="timelineWrapper">
+        {query?(
+        <Share />
+        ): ""
+        // (<Follow/>)
+      }
+        {posts.map((post) => (
+          <Post post={post} key={post._id} />
+        ))}
+      </div>
+    </div>
+    ):(
+      <div className="timeline">
       <div className="timelineWrapper">
         <Share />
         {posts.map((post) => (
@@ -81,6 +100,7 @@ const Timeline = ({ username }: Props) => {
         ))}
       </div>
     </div>
+    )
   );
 };
 
