@@ -7,12 +7,13 @@ import {
   Search,
   Settings,
 } from "@mui/icons-material";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CloseFriend from "../closeFriend/CloseFriend";
 import "./Sidebar.css";
-import { Users } from "../../dummyData";
+// import { Users } from "../../dummyData";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../state/AuthContext";
+import axios from "axios";
 
 type User = {
   _id: string;
@@ -31,6 +32,8 @@ type User = {
 const Sidebar = () => {
   const { user } = useContext(AuthContext);
 
+  const [closeFriend, setCloseFriend] = useState<User[]>([]);
+
   const defaultUser: User = {
     _id: "",
     username: "",
@@ -46,6 +49,15 @@ const Sidebar = () => {
   };
 
   const currentUser = user ? user : defaultUser;
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      //フォローしているユーザーの情報の取得
+      const response = await axios.get(`/users/${currentUser?._id}/followings`);
+      setCloseFriend(response.data);
+    };
+    fetchPosts();
+  }, [currentUser?._id]);
 
   return (
     <div className="sidebar">
@@ -76,7 +88,7 @@ const Sidebar = () => {
           <li className="sidebarListItem">
             <Person className="sidebarIcon" />
             <Link
-              to={`profile/${currentUser?.username}`}
+              to={`/profile/${currentUser?.username}`}
               style={{ textDecoration: "none", color: "black" }}
             >
               <span className="sidebarListItemText">プロフィール</span>
@@ -89,8 +101,8 @@ const Sidebar = () => {
         </ul>
         <hr className="sidebarHr" />
         <ul className="sidebarFriendList">
-          {Users.map((user) => (
-            <CloseFriend user={user} key={user.id} />
+          {closeFriend.map((user) => (
+            <CloseFriend user={user} key={user._id} />
           ))}
         </ul>
       </div>

@@ -44,3 +44,7 @@
 .profileRightBottom {
   display: flex;
 }
+
+.profileInfoButton {
+  margin-top: 10px;
+}

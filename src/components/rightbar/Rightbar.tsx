@@ -52,7 +52,8 @@ const Rightbar = ({ user }: Props) => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await axios.get(`/users/${currentUser?._id}/followings`); //ホームの場合
+      //フォローしているユーザーの情報の取得
+      const response = await axios.get(`/users/${currentUser?._id}/followings`);
       setOnlineUsers(response.data);
     };
     fetchPosts();
