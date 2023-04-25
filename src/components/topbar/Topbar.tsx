@@ -21,7 +21,7 @@ type User = {
 };
 
 const Topbar = () => {
-  const { user } = useContext(AuthContext);
+  const { user: users } = useContext(AuthContext);
 
   const defaultUser: User = {
     _id: "",
@@ -37,14 +37,14 @@ const Topbar = () => {
     desc: "",
   };
 
-  const currentUser = user ? user : defaultUser;
+  const currentUser = users ? users : defaultUser;
 
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER || "";
 
-  const logOut =(e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
+  const logOut = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     localStorage.setItem("user", JSON.stringify(null));
     window.location.reload();
-  }
+  };
   return (
     <div className="topbarContainer">
       <div className="topbarLeft">
@@ -73,19 +73,19 @@ const Topbar = () => {
             <span className="topbarIconBadge">2</span>
           </div>
           {/* <Link to={`/profile/${currentUser?.username}`}> */}
-          <div className = "topbarImage">
-            <div className = "logOut">
-            <img
-              src={
-                currentUser?.profilePicture
-                  ? PUBLIC_FOLDER + currentUser?.profilePicture
-                  : PUBLIC_FOLDER + "/person/noAvatar.png"
-              }
-              alt=""
-              className="topbarImg"
-              onClick={(e) => logOut(e)}
-            />
-          </div>
+          <div className="topbarImage">
+            <div className="logOut">
+              <img
+                src={
+                  currentUser?.profilePicture
+                    ? PUBLIC_FOLDER + currentUser?.profilePicture
+                    : PUBLIC_FOLDER + "/person/noAvatar.png"
+                }
+                alt=""
+                className="topbarImg"
+                onClick={(e) => logOut(e)}
+              />
+            </div>
           </div>
           {/* </Link> */}
         </div>

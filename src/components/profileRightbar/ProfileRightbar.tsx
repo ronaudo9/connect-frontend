@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 type Props = {
   user: {
@@ -19,6 +20,11 @@ type Props = {
 const ProfileRightbar = ({ user }: Props) => {
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
   return (
+    <Link
+    to={`/profile/${user?.username}`}
+    //Linkコンポーネントで囲った事による文字の色の変更を防ぐ
+    style={{ textDecoration: "none", color: "black" }}
+  >
     <li className="rightbarFollowing">
         <img
           src={
@@ -31,6 +37,7 @@ const ProfileRightbar = ({ user }: Props) => {
         />
       <span className="rightbarFollowingName">{user.username}</span>
     </li>
+    </Link>
   );
 };
 

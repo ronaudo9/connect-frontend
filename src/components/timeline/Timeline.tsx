@@ -5,6 +5,7 @@ import { AuthContext } from "../../state/AuthContext";
 import Follow from "../follow/Follow";
 import Post from "../Post/Post";
 import Share from "../share/Share";
+import UserEdit from "../userEdit/UserEdit";
 import "./Timeline.css";
 // import { Posts } from "../../dummyData";
 
@@ -82,7 +83,7 @@ const Timeline = ({ username }: Props) => {
     <div className="timeline">
       <div className="timelineWrapper">
         {query?(
-        <Share />
+        <UserEdit />
         ): ""
         // (<Follow/>)
       }
