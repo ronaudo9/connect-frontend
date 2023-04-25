@@ -60,9 +60,11 @@ const Profile = () => {
   const query = username === currentUser.username ? true : false;
 
 
+
+
   return (
     <>
-      <Topbar />
+      <Topbar/>
       <div className="profile">
         <Sidebar />
         <div className="profileRight">

@@ -21,7 +21,7 @@ const Online = ({user}:Props) => {
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
   return (
     <Link
-    to={`profile/${user?.username}`}
+    to={`/profile/${user?.username}`}
     //Linkコンポーネントで囲った事による文字の色の変更を防ぐ
     style={{ textDecoration: "none", color: "black" }}
   >

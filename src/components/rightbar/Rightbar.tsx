@@ -101,11 +101,11 @@ const Rightbar = ({ user }: Props) => {
   const ProfileRight = () => {
     return (
       <>
-        <h4 className="rightbarTitle">ユーザー情報</h4>
+        {/* <h4 className="rightbarTitle">ユーザー情報</h4> */}
         <div className="rightbarInfo">
           <div className="rightbarInfoItem">
-            <span className="rightbarInfoKey">出身：</span>
-            <span className="rightbarInfoKey">アルゼンチン</span>
+            {/* <span className="rightbarInfoKey">出身：</span>
+            <span className="rightbarInfoKey">アルゼンチン</span> */}
           </div>
           <h4 className="rightbarTitle">あなたの友達</h4>
           <ul className="rightbarFollowings">

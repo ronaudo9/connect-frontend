@@ -113,7 +113,9 @@ const Post = ({ post }: Props) => {
         </div>
         <div className="postCenter">
           <span className="postText">{post?.desc}</span>
-          <img src={PUBLIC_FOLDER + post?.img} alt="" className="postImg" />
+          {post?.img?
+          <img src={PUBLIC_FOLDER + post?.img} alt="" className="postImg" />:""
+        }
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">

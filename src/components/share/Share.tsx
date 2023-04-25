@@ -19,7 +19,9 @@ type User = {
 };
 
 const Share = () => {
-  const [file,setFile] = useState<File | null>({} as File);
+  //Fileは、TypeScriptに組み込まれた型定義
+  const [file,setFile] = useState<File | null>(null);
+
 
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
 
@@ -57,7 +59,9 @@ const Share = () => {
       const data = new FormData();
       //Date.now()は現在の時間をミリ秒単位で表す数値を返すJavaScriptの組み込み関数
       const fileName = Date.now() + file.name;
+      //fileNameをkeyに設定
       data.append("name",fileName);
+      //fileをvalueに設定
       data.append("file",file);
       newPost.img = fileName;
       try {
