@@ -11,6 +11,7 @@ import {
 } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "./state/AuthContext";
+import UserList from "./pages/userList/UserList";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -27,6 +28,7 @@ function App() {
           path="/profile/:username"
           element={user ? <Profile /> : <Register />}
         />
+        <Route path="/userList/:username" element = {user ? <UserList/> : <Register />}/>
       </Routes>
     </Router>
   );
