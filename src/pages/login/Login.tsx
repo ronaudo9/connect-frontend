@@ -1,30 +1,40 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import "./Login.css";
-import { FormEvent } from 'react';
+import { FormEvent } from "react";
 import { loginCall } from "../../state/ActionCalls";
 import { AuthContext } from "../../state/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { AxiosResponse } from "axios";
 
 const Login = () => {
   const navigate = useNavigate();
   const email = useRef<HTMLInputElement | null>(null);
   const password = useRef<HTMLInputElement | null>(null);
-  const {user,isFetching,error,dispatch} = useContext(AuthContext)
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const { user, isFetching, error, dispatch } = useContext(AuthContext);
+
+
+
+
+
+  const handleSubmit = async(e: FormEvent<HTMLFormElement>) => {
     //フォームが送信された時にページがリロードされるのを防ぐ
     e.preventDefault();
-  //  console.log(email.current?.value)
-  //  console.log(password.current?.value)
-  loginCall(
-    {
-      email: email.current?.value,
-      password: password.current?.value,
-    },
-    dispatch
-  )
-  };
+
+    //  console.log(email.current?.value)
+    //  console.log(password.current?.value)
+    // validate input
+
+
+    loginCall(
+      {
+        email: email.current?.value,
+        password: password.current?.value,
+      },
+      dispatch
+    )
+  }
   // console.log(user)
-  const register=(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const register = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     navigate("/register");
   };
 
@@ -36,14 +46,14 @@ const Login = () => {
           <span className="loginDesc">本格的なSNSを、自分の手で。</span>
         </div>
         <div className="loginRight">
-          <form className="loginBox" onSubmit = {(e) => handleSubmit(e)}>
+          <form className="loginBox" onSubmit={(e) => handleSubmit(e)}>
             <p className="loginMsg">ログインはこちら</p>
             <input
               type="email"
               className="loginInput"
               placeholder="Eメール"
               required
-              ref = {email}
+              ref={email}
             />
             <input
               type="password"
@@ -55,7 +65,12 @@ const Login = () => {
             />
             <button className="loginButton">ログイン</button>
             <span className="loginForgot">パスワードを忘れた方へ</span>
-            <button className="loginRegisterButton" onClick={(e) => register(e)}>アカウント作成</button>
+            <button
+              className="loginRegisterButton"
+              onClick={(e) => register(e)}
+            >
+              アカウント作成
+            </button>
           </form>
         </div>
       </div>

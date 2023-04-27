@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Search } from "@mui/icons-material";
 import { Chat } from "@mui/icons-material";
 import { Notifications } from "@mui/icons-material";
 import "./Topbar.css";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../state/AuthContext";
+import axios from "axios";
 
 type User = {
   _id: string;
@@ -20,7 +21,25 @@ type User = {
   desc?: string;
 };
 
+// type Props = {
+//   user?: {
+//     _id: string;
+//     username: string;
+//     email: string;
+//     profilePicture: string;
+//     coverPicture: string;
+//     followers: string[];
+//     followings: string[];
+//     isAdmin: boolean;
+//     createdAt: number;
+//     __v: number;
+//     desc?: string;
+//   };
+// };
+
 const Topbar = () => {
+  const [user, setUser] = useState<User | null>(null);
+
   const { user: users } = useContext(AuthContext);
 
   const defaultUser: User = {
@@ -40,6 +59,16 @@ const Topbar = () => {
   const currentUser = users ? users : defaultUser;
 
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER || "";
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const response = await axios.get(`/users?userId=${currentUser?._id}`);
+      const fetchedUser = response.data;
+      setUser(fetchedUser);
+    };
+    fetchUser();
+  }, [currentUser?._id]);
+
 
   const logOut = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     localStorage.setItem("user", JSON.stringify(null));
@@ -77,8 +106,8 @@ const Topbar = () => {
             <div className="logOut">
               <img
                 src={
-                  currentUser?.profilePicture
-                    ? PUBLIC_FOLDER + currentUser?.profilePicture
+                  user?.profilePicture
+                    ? PUBLIC_FOLDER + user?.profilePicture
                     : PUBLIC_FOLDER + "/person/noAvatar.png"
                 }
                 alt=""

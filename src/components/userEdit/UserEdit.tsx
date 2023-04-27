@@ -1,6 +1,6 @@
 import { Analytics, Face, Gif, Image, TransgenderTwoTone } from "@mui/icons-material";
 import axios from "axios";
-import React, { FormEvent, useContext, useRef, useState } from "react";
+import React, { FormEvent, useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../state/AuthContext";
 import "./UserEdit.css";
 
@@ -22,12 +22,14 @@ const UserEdit = () => {
  //Fileは、TypeScriptに組み込まれた型定義
  const [file,setFile] = useState<File | null>(null);
 
+ const [user, setUser] = useState<User | null>(null);
+
 
  const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
 
  const desc = useRef<HTMLInputElement | null>(null);
 
- const { user } = useContext(AuthContext);
+ const { user:users } = useContext(AuthContext);
 
  const defaultUser: User = {
    _id: "",
@@ -43,8 +45,18 @@ const UserEdit = () => {
    desc: "",
  };
 
- const currentUser = user ? user : defaultUser;
+ const currentUser = users ? users : defaultUser;
  const id = currentUser?._id;
+
+ useEffect(() => {
+  const fetchUser = async () => {
+    const response = await axios.get(`/users?userId=${currentUser?._id}`);
+    const fetchedUser = response.data;
+    setUser(fetchedUser);
+  };
+  fetchUser();
+}, [currentUser?._id]);
+
 
  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
    e.preventDefault();
@@ -93,8 +105,8 @@ const UserEdit = () => {
        <div className="shareTop">
          <img
            src={
-             currentUser?.profilePicture
-               ? PUBLIC_FOLDER + currentUser?.profilePicture
+             user?.profilePicture
+               ? PUBLIC_FOLDER + user?.profilePicture
                : PUBLIC_FOLDER + "/person/noAvatar.png"
            }
            alt=""
